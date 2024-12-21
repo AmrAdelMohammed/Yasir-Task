@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol NetworkServiceContract {
-    func request<T: Decodable>(_ urlRequest: URLRequest) -> AnyPublisher<T, Error>
+    func request<T: Decodable>(_ urlRequest: URLRequest) async -> Result<T, Error>
 }
 
 class NetworkService: NetworkServiceContract {
@@ -23,39 +23,15 @@ class NetworkService: NetworkServiceContract {
         self.decodingService = decodingService
     }
     
-    func request<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
-        return urlSession.dataTaskPublisher(for: request)
-            .tryMap { [weak self] data, response in
-                // Check the response status code
-                guard let self = self else {
-                    throw APIError.unknown
-                }
-                
-                let result = self.verifyResponse(data: data, response: response)
-                switch result {
-                case .success:
-                    return data
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .tryMap { [weak self] data in
-                // Decode the response data
-                guard let self = self else {
-                    throw APIError.unknown
-                }
-                
-                do {
-                    return try self.decodingService.decode(data, to: T.self)
-                } catch {
-                    throw APIError.decodingFailed
-                }
-            }
-            .mapError { error -> Error in
-                // Map any error to a generic Error type
-                return error
-            }
-            .eraseToAnyPublisher()
+    
+    func request<T: Decodable>(_ request: URLRequest) async -> Result<T, Error> {
+        do {
+            let (data, response) = try await urlSession.data(for: request)
+            let result = verifyResponse(data: data, response: response)
+            return decodeResponse(result: result)
+        } catch {
+            return .failure(error)
+        }
     }
     
     private func verifyResponse(data: Data, response: URLResponse) -> Result<Data, Error> {
@@ -71,6 +47,21 @@ class NetworkService: NetworkServiceContract {
             return .failure(APIError.serverError)
         default:
             return .failure(APIError.unknown)
+        }
+    }
+    
+    private func decodeResponse<T: Decodable>(result: Result<Data, Error>) -> Result<T,Error> {
+        
+        switch result {
+        case .success(let data):
+            do {
+                let decodedData = try self.decodingService.decode(data, to: T.self)
+                return .success(decodedData)
+            } catch {
+                return .failure(APIError.decodingFailed)
+            }
+        case .failure(let error):
+            return .failure(error)
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class HomeViewController: UIViewController {
     private let collectionView: UICollectionView = {
@@ -18,6 +19,8 @@ class HomeViewController: UIViewController {
     }()
     
     private let tableView = UITableView()
+    let viewModel = CharactersVM()
+    private var bindings = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +65,7 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        
+        tableView.separatorColor = .clear
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -70,12 +73,19 @@ class HomeViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.loadData()
+        viewModel.$charactersList.receive(on: DispatchQueue.main).sink(receiveValue: {[weak self] _ in
+            self?.tableView.reloadData()
+        }).store(in: &bindings)
+    }
 }
 
 // MARK: - UICollectionView DataSource and Delegate
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return Status.allCases.count
     }
     
     func collectionView(
@@ -83,7 +93,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as! TagCell
-        cell.configure(with: "Tag \(indexPath.item + 1)")
+        cell.configure(with: Status.allCases[indexPath.row].rawValue)
         return cell
     }
     
@@ -99,7 +109,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 // MARK: - UITableView DataSource
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return viewModel.charactersList.count
     }
     
     func tableView(
@@ -107,7 +117,7 @@ extension HomeViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as! TableViewCell
-        cell.configure(with: "Row \(indexPath.row + 1)")
+        cell.configure(with: viewModel.charactersList[indexPath.row])
         return cell
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol CharactersRepoContract{
-    func getCharacters() -> AnyPublisher<CharacterModel, Error>
+    func getCharacters(urlString:  String?) async -> Result<CharacterModel,Error>
 }
 
 class CharactersRepo: CharactersRepoContract {
@@ -19,8 +19,11 @@ class CharactersRepo: CharactersRepoContract {
         self.networkService = networkService
     }
 
-    func getCharacters() -> AnyPublisher<CharacterModel, Error> {
-        let urlRequest = URLRequest(url: URL(string: "https://rickandmortyapi.com/api/character")!)
-        return networkService.request(urlRequest)
+    func getCharacters(urlString: String?) async -> Result<CharacterModel,Error> {
+        if let url = urlString {
+            let urlRequest = URLRequest(url: URL(string: url)!)
+            return await networkService.request(urlRequest)
+        }
+        return .failure(APIError.badRequest)
     }
 }

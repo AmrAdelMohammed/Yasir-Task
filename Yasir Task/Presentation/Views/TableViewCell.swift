@@ -10,19 +10,19 @@ import SwiftUI
 
 class TableViewCell: UITableViewCell {
     static let identifier = "TableViewCell"
-
+    
     private var hostingController: UIHostingController<SwiftUICellContent>?
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func configure(with text: String) {
-        let swiftUIView = SwiftUICellContent(text: text)
+    
+    func configure(with character: CharacterEntity?) {
+        let swiftUIView = SwiftUICellContent(character: character)
         if hostingController == nil {
             hostingController = UIHostingController(rootView: swiftUIView)
             if let hostView = hostingController?.view {
@@ -43,13 +43,66 @@ class TableViewCell: UITableViewCell {
 
 // MARK: - SwiftUI Content for TableView Cells
 struct SwiftUICellContent: View {
-    let text: String
-
+    let character: CharacterEntity?
+    private var backgroundColor: Color {
+        switch character?.gender {
+        case .male:
+            return Color.blue.opacity(0.1)
+        case .female:
+            return Color.pink.opacity(0.1)
+        case .unknown:
+            return Color.white
+        case .none:
+            return Color.white
+        }
+    }
+    
     var body: some View {
-        Text(text)
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.gray.opacity(0.2))
+        VStack{
+            HStack {
+                AsyncImage(url: URL(string: character?.image ?? "")) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()  // Show a loading spinner
+                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                            .frame(width: 50, height: 50)
+                            .background(Color.gray.opacity(0.3))
+                            .cornerRadius(10)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .cornerRadius(7)
+                            
+                    case .failure:
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .background(Color.gray.opacity(0.3))
+                    @unknown default:
+                        EmptyView()
+                    }
+                }.padding()
+                
+                VStack(alignment: .leading) {
+                    Text(character?.name ?? "Unknown Name")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Text("\(character?.species?.rawValue ?? "Unknown")")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.leading)
+                Spacer()
+            }
+            .background(backgroundColor)
+            .cornerRadius(10)
+            .shadow(radius: 5)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 4)
     }
 }
-
