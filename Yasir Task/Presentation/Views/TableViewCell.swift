@@ -50,9 +50,7 @@ struct SwiftUICellContent: View {
             return Color.blue.opacity(0.1)
         case .female:
             return Color.pink.opacity(0.1)
-        case .unknown:
-            return Color.white
-        case .none:
+        default:
             return Color.white
         }
     }
@@ -91,7 +89,7 @@ struct SwiftUICellContent: View {
                         .font(.headline)
                         .foregroundColor(.primary)
                     
-                    Text("\(character?.species?.rawValue ?? "Unknown")")
+                    Text("\(character?.species ?? "Unknown")")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }

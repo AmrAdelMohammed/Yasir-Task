@@ -63,6 +63,7 @@ class HomeViewController: UIViewController {
     private func setupTableView() {
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         tableView.separatorColor = .clear
@@ -107,7 +108,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 }
 
 // MARK: - UITableView DataSource
-extension HomeViewController: UITableViewDataSource {
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.charactersList.count
     }
@@ -118,8 +119,12 @@ extension HomeViewController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as! TableViewCell
         cell.configure(with: viewModel.charactersList[indexPath.row])
+        if indexPath.row == (viewModel.charactersList.count - 2) {
+            viewModel.loadData()
+        }
         return cell
     }
+    
 }
 
 

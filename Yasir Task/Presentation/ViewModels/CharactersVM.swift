@@ -31,7 +31,7 @@ class CharactersVM: CharactersVMContract {
     private func getChatacters(_ urlString: String?) async {
         let response = await characterUseCase.getCharacters(urlString: urlString)
         DispatchQueue.main.async {
-            self.charactersList = response?.characters ?? []
+            self.charactersList.append(contentsOf: response?.characters ?? []) 
             self.dataInfo = response?.dataInfo
         }
     }

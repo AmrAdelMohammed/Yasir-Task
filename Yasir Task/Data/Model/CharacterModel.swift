@@ -26,7 +26,7 @@ struct CharacterResult: Codable {
     var id: Int?
     var name: String?
     var status: Status?
-    var species: Species?
+    var species: String?
     var type: String?
     var gender: Gender?
     var origin, location: Location?
@@ -40,17 +40,13 @@ enum Gender: String, Codable {
     case female = "Female"
     case male = "Male"
     case unknown = "unknown"
+    case genderless = "Genderless"
 }
 
 // MARK: - Location
 struct Location: Codable {
     var name: String?
     var url: String?
-}
-
-enum Species: String, Codable {
-    case alien = "Alien"
-    case human = "Human"
 }
 
 enum Status: String, Codable, CaseIterable {

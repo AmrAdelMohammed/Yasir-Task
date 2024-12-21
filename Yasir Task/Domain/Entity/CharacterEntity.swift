@@ -15,7 +15,7 @@ struct ResposneEntity {
 struct CharacterEntity {
     var image: String?
     var name: String?
-    var species: Species?
+    var species: String?
     var gender: Gender?
     var status: Status?
 }
