@@ -41,7 +41,8 @@ class CharacterUseCase: CharacterUseCaseContract {
                 name: result.name,
                 species: result.species,
                 gender: result.gender,
-                status: result.status
+                status: result.status,
+                location: result.location?.name
             )
         }
     }

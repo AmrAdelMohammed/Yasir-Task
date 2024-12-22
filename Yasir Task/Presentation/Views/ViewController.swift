@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SwiftUI
 
 class HomeViewController: UIViewController {
     private let collectionView: UICollectionView = {
@@ -124,6 +125,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let selectedCharacter = viewModel.charactersList[indexPath.row]
+            let swiftUIView = DetailsView(character: selectedCharacter)
+            let hostingController = UIHostingController(rootView: swiftUIView)
+            navigationController?.pushViewController(hostingController, animated: true)
+        }
     
 }
 

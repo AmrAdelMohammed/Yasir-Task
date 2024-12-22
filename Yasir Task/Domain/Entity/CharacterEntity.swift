@@ -18,6 +18,7 @@ struct CharacterEntity {
     var species: String?
     var gender: Gender?
     var status: Status?
+    var location: String?
 }
 
 struct DataInfo {
