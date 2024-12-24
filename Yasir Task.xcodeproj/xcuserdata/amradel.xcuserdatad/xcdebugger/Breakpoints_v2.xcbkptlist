@@ -7,17 +7,61 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E415E1FB-B97F-4EC3-B2E4-BF7A8863407B"
+            uuid = "12C4D6BC-B949-45BB-A8EF-2D25695A8C87"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Yasir Task/Domain/UseCase/CharacterUseCase.swift"
+            filePath = "Yasir Task/Presentation/ViewModels/CharactersVM.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "getCharacters(urlString:)"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "loadData()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "12C4D6BC-B949-45BB-A8EF-2D25695A8C87 - 2ce0c33eb5bcd13c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Yasir_Task.CharactersVM.loadData() -&gt; ()"
+                  moduleName = "Yasir Task"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amradel/Desktop/Yasir%20Task/Yasir%20Task/Presentation/ViewModels/CharactersVM.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+               <Location
+                  uuid = "12C4D6BC-B949-45BB-A8EF-2D25695A8C87 - 352cf7bc46623fd7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) await resume partial function for closure #1 @Sendable () async -&gt; () in Yasir_Task.CharactersVM.loadData() -&gt; ()"
+                  moduleName = "Yasir Task"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amradel/Desktop/Yasir%20Task/Yasir%20Task/Presentation/ViewModels/CharactersVM.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+               <Location
+                  uuid = "12C4D6BC-B949-45BB-A8EF-2D25695A8C87 - 83ffac788ec6b739"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Yasir_Task.CharactersVM.loadData() -&gt; ()"
+                  moduleName = "Yasir Task"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/amradel/Desktop/Yasir%20Task/Yasir%20Task/Presentation/ViewModels/CharactersVM.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
