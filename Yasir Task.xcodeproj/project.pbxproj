@@ -13,7 +13,7 @@
 		3F79D7572D1895220066E886 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F79D7562D1895220066E886 /* DetailsView.swift */; };
 		3FC2C6BA2D0C52D800F4E82C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC2C6B92D0C52D800F4E82C /* AppDelegate.swift */; };
 		3FC2C6BC2D0C52D800F4E82C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC2C6BB2D0C52D800F4E82C /* SceneDelegate.swift */; };
-		3FC2C6BE2D0C52D800F4E82C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC2C6BD2D0C52D800F4E82C /* ViewController.swift */; };
+		3FC2C6BE2D0C52D800F4E82C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC2C6BD2D0C52D800F4E82C /* HomeViewController.swift */; };
 		3FC2C6C32D0C52D900F4E82C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC2C6C22D0C52D900F4E82C /* Assets.xcassets */; };
 		3FC2C6C62D0C52D900F4E82C /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3FC2C6C52D0C52D900F4E82C /* Base */; };
 		3FC2C6D12D0C52D900F4E82C /* Yasir_TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC2C6D02D0C52D900F4E82C /* Yasir_TaskTests.swift */; };
@@ -54,7 +54,7 @@
 		3FC2C6B62D0C52D800F4E82C /* Yasir Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yasir Task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FC2C6B92D0C52D800F4E82C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FC2C6BB2D0C52D800F4E82C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3FC2C6BD2D0C52D800F4E82C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3FC2C6BD2D0C52D800F4E82C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3FC2C6C22D0C52D900F4E82C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FC2C6C52D0C52D900F4E82C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FC2C6C72D0C52D900F4E82C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 		3FC2C6F02D0C6B2700F4E82C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3FC2C6BD2D0C52D800F4E82C /* ViewController.swift */,
+				3FC2C6BD2D0C52D800F4E82C /* HomeViewController.swift */,
 				3FC2C6E92D0C590D00F4E82C /* TagCell.swift */,
 				3FC2C6EB2D0C594B00F4E82C /* TableViewCell.swift */,
 				3F79D7562D1895220066E886 /* DetailsView.swift */,
@@ -383,7 +383,7 @@
 				3F79D7572D1895220066E886 /* DetailsView.swift in Sources */,
 				3F247B282D1666A000A5E4B9 /* CharactersVM.swift in Sources */,
 				3FC2C6EA2D0C590D00F4E82C /* TagCell.swift in Sources */,
-				3FC2C6BE2D0C52D800F4E82C /* ViewController.swift in Sources */,
+				3FC2C6BE2D0C52D800F4E82C /* HomeViewController.swift in Sources */,
 				3F247B252D16636C00A5E4B9 /* CharacterUseCase.swift in Sources */,
 				3FC2C6BA2D0C52D800F4E82C /* AppDelegate.swift in Sources */,
 				3F247B232D165CC200A5E4B9 /* CharacterEntity.swift in Sources */,

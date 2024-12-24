@@ -8,11 +8,7 @@
 import Combine
 import Foundation
 
-protocol CharactersVMContract {
-    func loadData()
-}
-
-class CharactersVM: CharactersVMContract {
+class CharactersVM {
     private let characterUseCase: CharacterUseCaseContract
     @Published private(set) var charactersList: [CharacterEntity] = [CharacterEntity]()
     private(set) var dataInfo: DataInfo?
@@ -27,11 +23,24 @@ class CharactersVM: CharactersVMContract {
             await getChatacters(dataInfo.next)
         }
     }
+    func filter(status: Status? = nil) {
+        Task {
+            var defaultUrl = "https://rickandmortyapi.com/api/character"
+            dataInfo =  nil
+            charactersList = []
+            if status != nil {
+                defaultUrl = "https://rickandmortyapi.com/api/character?status=\(status?.rawValue ?? "")"
+            }
+            guard let dataInfo = dataInfo else { return await getChatacters(defaultUrl) }
+            await getChatacters(dataInfo.next)
+            
+        }
+    }
     
     private func getChatacters(_ urlString: String?) async {
         let response = await characterUseCase.getCharacters(urlString: urlString)
         DispatchQueue.main.async {
-            self.charactersList.append(contentsOf: response?.characters ?? []) 
+            self.charactersList.append(contentsOf: response?.characters ?? [])
             self.dataInfo = response?.dataInfo
         }
     }

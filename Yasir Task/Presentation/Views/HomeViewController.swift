@@ -10,6 +10,10 @@ import Combine
 import SwiftUI
 
 class HomeViewController: UIViewController {
+    
+    let viewModel = CharactersVM()
+    
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -20,8 +24,9 @@ class HomeViewController: UIViewController {
     }()
     
     private let tableView = UITableView()
-    let viewModel = CharactersVM()
+    
     private var bindings = Set<AnyCancellable>()
+    private var selectedStatus: Status?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +100,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as! TagCell
-        cell.configure(with: Status.allCases[indexPath.row].rawValue)
+        let status = Status.allCases[indexPath.row]
+        cell.configure(with: status.rawValue)
+        if status == selectedStatus {
+            cell.contentView.backgroundColor = .blue
+        } else {
+            cell.contentView.backgroundColor = .white
+        }
+        
         return cell
     }
     
@@ -105,6 +117,18 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         return CGSize(width: 80, height: 40)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedTag = Status.allCases[indexPath.row]
+        if selectedStatus == selectedTag {
+            selectedStatus = nil
+            viewModel.filter()
+        } else {
+            selectedStatus = selectedTag
+            viewModel.filter(status: selectedTag)
+        }
+        collectionView.reloadData()
     }
 }
 
@@ -126,11 +150,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let selectedCharacter = viewModel.charactersList[indexPath.row]
-            let swiftUIView = DetailsView(character: selectedCharacter)
-            let hostingController = UIHostingController(rootView: swiftUIView)
-            navigationController?.pushViewController(hostingController, animated: true)
-        }
+        let selectedCharacter = viewModel.charactersList[indexPath.row]
+        let swiftUIView = DetailsView(character: selectedCharacter)
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        navigationController?.pushViewController(hostingController, animated: true)
+    }
     
 }
 
